@@ -1,10 +1,10 @@
 import { Pressable, Text, View } from "react-native";
-import { Link, useRootNavigationState } from "expo-router";
+import { Link, useRootNavigationState, Redirect } from "expo-router";
 import { useEffect } from "react";
 import { useUser } from "@clerk/clerk-expo";
 export default function Index() {
 
-  // const { user } = useUser();
+  const { user } = useUser();
 
   // const rootNavigationState=useRootNavigationState()
 
@@ -26,11 +26,12 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Link href={'/login'}>
+      {user?
+    <Redirect href={'/(tabs)/home'} />
+    :<Redirect href={'/login'}/>  
+    }
       
-        <Text> Go To Login Screen </Text>
       
-      </Link>
     </View>
   );
 }
